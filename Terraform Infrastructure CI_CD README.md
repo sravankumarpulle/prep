@@ -1,8 +1,10 @@
 # Terraform Infrastructure CI/CD
 
 ## Overview
-
 Infrastructure is provisioned with reusable Terraform modules and GitHub Actions. Pull requests run validation, security scanning, and `terraform plan`; approved merges run `terraform apply` using Azure OIDC authentication.
+
+> We store reusable Terraform modules in GitHub and maintain separate non-sensitive tfvars and state files for Dev, QA, Stage, and Production. A pull request runs formatting, validation, Gitleaks, Checkov, and Terraform plan. After code review and environment approval, GitHub Actions authenticates to Azure through OIDC and applies the reviewed change. State is stored securely in Azure Blob Storage with RBAC, locking, versioning, soft delete, and restricted network access. After apply, we validate networking, security, monitoring, and application dependencies before closing the change.
+
 
 ## Pipeline Flow
 
