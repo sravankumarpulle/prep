@@ -4,6 +4,8 @@
 
 GitHub Actions handles CI: build, test, security scans, Docker image creation, and push to Azure Container Registry (ACR). FluxCD handles CD by reconciling Helm releases from the GitOps repository into AKS.
 
+> We use GitHub Actions for CI and FluxCD for GitOps-based CD. A pull request runs tests, SonarQube, Black Duck, Gitleaks, and container scanning. After the gates pass, the pipeline builds a multi-stage Docker image and pushes an immutable version to ACR. The approved image tag is updated in the GitOps repository, and FluxCD deploys the Helm release to AKS. We promote the same image through all environments and roll back by reverting the GitOps commit.
+
 ## Delivery Flow
 
 ```text
